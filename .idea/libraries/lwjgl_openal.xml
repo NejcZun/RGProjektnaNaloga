@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="lwjgl-openal">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/lwjgl-3.2.3/lwjgl-openal" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/lwjgl-3.2.3/lwjgl-openal" />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/lwjgl-3.2.3/lwjgl-openal" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/lwjgl-3.2.3/lwjgl-openal" recursive="false" type="SOURCES" />
+  </library>
+</component>

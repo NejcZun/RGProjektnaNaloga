@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="lwjgl-stb">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/lwjgl-3.2.3/lwjgl-stb" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/lwjgl-3.2.3/lwjgl-stb" />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/lwjgl-3.2.3/lwjgl-stb" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/lwjgl-3.2.3/lwjgl-stb" recursive="false" type="SOURCES" />
+  </library>
+</component>
