@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="lwjgl-ovr" level="project" />
+    <orderEntry type="library" name="lwjgl-par" level="project" />
+    <orderEntry type="library" name="lwjgl" level="project" />
+    <orderEntry type="library" name="lwjgl-glfw" level="project" />
+    <orderEntry type="library" name="lwjgl-nanovg" level="project" />
+    <orderEntry type="library" name="lwjgl-nuklear" level="project" />
+    <orderEntry type="library" name="lwjgl-meow" level="project" />
+    <orderEntry type="library" name="lwjgl-tootle" level="project" />
+    <orderEntry type="library" name="lwjgl-bgfx" level="project" />
+    <orderEntry type="library" name="lwjgl-jemalloc" level="project" />
+    <orderEntry type="library" name="lwjgl-sse" level="project" />
+    <orderEntry type="library" name="lwjgl-openvr" level="project" />
+    <orderEntry type="library" name="lwjgl-xxhash" level="project" />
+    <orderEntry type="library" name="lwjgl-llvm" level="project" />
+    <orderEntry type="library" name="lwjgl-opengl" level="project" />
+    <orderEntry type="library" name="lwjgl-jawt" level="project" />
+    <orderEntry type="library" name="lwjgl-stb" level="project" />
+    <orderEntry type="library" name="lwjgl-opus" level="project" />
+    <orderEntry type="library" name="lwjgl-odbc" level="project" />
+    <orderEntry type="library" name="lwjgl-opengles" level="project" />
+    <orderEntry type="library" name="lwjgl-assimp" level="project" />
+    <orderEntry type="library" name="lwjgl-opencl" level="project" />
+    <orderEntry type="library" name="lwjgl-vma" level="project" />
+    <orderEntry type="library" name="lwjgl-zstd" level="project" />
+    <orderEntry type="library" name="lwjgl-egl" level="project" />
+    <orderEntry type="library" name="lwjgl-lmdb" level="project" />
+    <orderEntry type="library" name="lwjgl-cuda" level="project" />
+    <orderEntry type="library" name="lwjgl-vulkan" level="project" />
+    <orderEntry type="library" name="lwjgl-lz4" level="project" />
+    <orderEntry type="library" name="lwjgl-tinyfd" level="project" />
+    <orderEntry type="library" name="lwjgl-shaderc" level="project" />
+    <orderEntry type="library" name="lwjgl-yoga" level="project" />
+    <orderEntry type="library" name="lwjgl-rpmalloc" level="project" />
+    <orderEntry type="library" name="lwjgl-libdivide" level="project" />
+    <orderEntry type="library" name="lwjgl-openal" level="project" />
+    <orderEntry type="library" name="lwjgl-remotery" level="project" />
+    <orderEntry type="library" name="lwjgl-tinyexr" level="project" />
+  </component>
+</module>
