@@ -18,6 +18,7 @@ public class DisplayManager {
         try {
             Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
             Display.create(new PixelFormat(), attribs);
+            Display.setTitle("RG Projektna Naloga");
         }catch(LWJGLException e){
             e.printStackTrace();
         }
