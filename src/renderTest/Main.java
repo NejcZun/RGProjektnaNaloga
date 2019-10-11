@@ -27,7 +27,7 @@ public class Main {
         TexturedModel staticModel = new TexturedModel(model,new ModelTexture(loader.loadTexture("tree")));
         ModelTexture texture = staticModel.getTexture();
 
-        Entity entity = new Entity(staticModel, new Vector3f(0,0,-25), 0, 0, 0,1);
+        Entity entity = new Entity(staticModel, new Vector3f(25,0,25), 0, 0, 0,1);
         Light light = new Light(new Vector3f(3000, 2000, 2000), new Vector3f(1,1,1));
 
         Terrain terrain = new Terrain(0,0,loader, new ModelTexture(loader.loadTexture("grass")));
