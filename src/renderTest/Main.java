@@ -3,6 +3,7 @@ package renderTest;
 import entities.Camera;
 import entities.Entity;
 import entities.Light;
+import entities.Player;
 import models.RawModel;
 import models.TexturedModel;
 import objConverter.ModelData;
@@ -78,12 +79,16 @@ public class Main {
         Terrain terrain = new Terrain(0,-1,loader, texturePack, blendMap);
         Terrain terrain2 = new Terrain(-1,-1,loader, texturePack, blendMap);
 
-        Camera camera = new Camera();
         MasterRenderer renderer = new MasterRenderer();
+
+        TexturedModel person = new TexturedModel(OBJLoader.loadObjModel("person", loader), new ModelTexture(loader.loadTexture("playerTexture")));
+        Player player = new Player(person, new Vector3f(100, 0, -50), 0,0,0,1);
+        Camera camera = new Camera(player);
 
         while(!Display.isCloseRequested()){
             camera.move();
-
+            player.move();
+            renderer.processEntity(player);
             renderer.processTerrain(terrain);
             renderer.processTerrain(terrain2);
             for(Entity entity: entities) {
