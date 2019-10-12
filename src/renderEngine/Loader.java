@@ -50,7 +50,15 @@ public class Loader {
 		textures.add(texture.getTextureID());
 		return texture.getTextureID();
 	}
-	
+
+	public RawModel loadToVAO(float[] positions){
+		int vaoID = createVAO();
+		this.storeDataInAttributeList(0, 2, positions);
+		unbindVAO();
+		return new RawModel(vaoID, positions.length/2);
+	}
+
+
 	public void cleanUp(){
 		for(int vao:vaos){
 			GL30.glDeleteVertexArrays(vao);

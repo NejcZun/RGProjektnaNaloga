@@ -4,11 +4,14 @@ import entities.Camera;
 import entities.Entity;
 import entities.Light;
 import entities.Player;
+import guis.GuiRenderer;
+import guis.GuiTexture;
 import models.RawModel;
 import models.TexturedModel;
 import objConverter.ModelData;
 import objConverter.OBJFileLoader;
 import org.lwjgl.opengl.Display;
+import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 import renderEngine.DisplayManager;
 import renderEngine.Loader;
@@ -47,7 +50,9 @@ public class Main {
 
         TexturedModel flower = new TexturedModel(OBJLoader.loadObjModel("grassModel", loader), new ModelTexture(loader.loadTexture("flower")));
 
-        TexturedModel fern = new TexturedModel(OBJLoader.loadObjModel("fern", loader), new ModelTexture(loader.loadTexture("fern")));
+        ModelTexture fernTextureAtlas = new ModelTexture(loader.loadTexture("fern"));
+        fernTextureAtlas.setNumberOfRows(2);
+        TexturedModel fern = new TexturedModel(OBJLoader.loadObjModel("fern", loader), fernTextureAtlas);
 
         TexturedModel bobble = new TexturedModel(OBJLoader.loadObjModel("lowPolyTree", loader), new ModelTexture(loader.loadTexture("lowPolyTree")));
 
@@ -61,11 +66,11 @@ public class Main {
         List<Entity> entities = new ArrayList<>();
         Random random = new Random(676452);
         for(int i=0; i < 400; i++){
-            if(i%10==0){
+            if(i%2==0){
                 float x = random.nextFloat() * 800;
                 float z = random.nextFloat() * -600;
                 float y = terrain.getHeightOfTerrain(x, z);
-                entities.add(new Entity(fern, new Vector3f(x, y, z), 0, random.nextFloat() * 360, 0, 0.9f));
+                entities.add(new Entity(fern, random.nextInt(4), new Vector3f(x, y, z), 0, random.nextFloat() * 360, 0, 0.9f));
                 //entities.add(new Entity(grass, new Vector3f(x, y, z), 0,0,0,1.8f));
                 //entities.add(new Entity(flower, new Vector3f(x, y, z), 0,0,0,2.3f));
             }
@@ -92,19 +97,25 @@ public class Main {
         Player player = new Player(person, new Vector3f(100, 5, -150), 0,180,0,0.6f);
         Camera camera = new Camera(player);
 
+        List<GuiTexture> guis = new ArrayList<>();
+        GuiTexture gui = new GuiTexture(loader.loadTexture("health"), new Vector2f(-0.8f, 0.9f), new Vector2f(0.2f, 0.3f));
+        guis.add(gui);
+        GuiRenderer guiRenderer = new GuiRenderer(loader);
 
         while(!Display.isCloseRequested()){
-            camera.move();
             player.move(terrain);
+            camera.move();
             renderer.processEntity(player);
             renderer.processTerrain(terrain);
             for(Entity entity: entities) {
                 renderer.processEntity(entity);
             }
             renderer.render(light,camera);
+            guiRenderer.render(guis);
             DisplayManager.updateDisplay();
         }
-
+        guiRenderer.cleanUp();
+        renderer.cleanUp();
         loader.cleanUp();
         DisplayManager.closeDisplay();
 
