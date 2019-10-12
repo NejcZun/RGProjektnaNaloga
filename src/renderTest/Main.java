@@ -29,7 +29,7 @@ public class Main {
         Loader loader = new Loader();
 
 
-        // **** TERRAIN ** //
+        // **** TERRAIN **** //
 
         TerrainTexture backgroundTexture = new TerrainTexture(loader.loadTexture("grassy"));
         TerrainTexture rTexture = new TerrainTexture(loader.loadTexture("dirt"));
