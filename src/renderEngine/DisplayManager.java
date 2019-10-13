@@ -19,14 +19,14 @@ public class DisplayManager {
 	private static float delta;
 	
 	public static void createDisplay(){		
-		ContextAttribs attribs = new ContextAttribs(3,2)
+		ContextAttribs attribs = new ContextAttribs(3,3)
 		.withForwardCompatible(true)
 		.withProfileCore(true);
 		
 		try {
 			Display.setDisplayMode(new DisplayMode(WIDTH,HEIGHT));
-			Display.create(new PixelFormat(), attribs);
-			Display.setTitle("Our First Display!");
+			Display.create(new PixelFormat().withSamples(8), attribs); //zamenjaj cifro if u want higher def
+			Display.setTitle("RG Projektna Naloga");
 			GL11.glEnable(GL13.GL_MULTISAMPLE);
 		} catch (LWJGLException e) {
 			e.printStackTrace();
