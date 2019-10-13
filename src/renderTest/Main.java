@@ -109,7 +109,7 @@ public class Main {
         boulderModel.getTexture().setReflectivity(0.5f);
 
 
-        //************ENTITIES*******************
+        //ENTITETE
 
         Entity entity = new Entity(barrelModel, new Vector3f(75, 10, -75), 0, 0, 0, 1f);
         Entity entity2 = new Entity(boulderModel, new Vector3f(85, 10, -75), 0, 0, 0, 1f);
@@ -139,7 +139,7 @@ public class Main {
             float x = 400 + random.nextFloat() * 200;
             float z = -400 + random.nextFloat() * 200;
             float y = terrain.getHeightOfTerrain(x, z);
-            normalMapEntities.add(new Entity(boulderModel, new Vector3f(x, y,z), 0, random.nextFloat() * 360, 0, 0.5f + random.nextFloat()));
+            normalMapEntities.add(new Entity(boulderModel, new Vector3f(x, y,z), 180, random.nextFloat() * 360, 0, 0.5f + random.nextFloat()));
         }
 
 
@@ -152,17 +152,17 @@ public class Main {
         GuiRenderer guiRenderer = new GuiRenderer(loader);
         MousePicker picker = new MousePicker(camera, renderer.getProjectionMatrix(), terrain);
 
-        //**********Water Renderer Set-up************************
+        //VODA
 
         WaterFrameBuffers buffers = new WaterFrameBuffers();
         WaterShader waterShader = new WaterShader();
         WaterRenderer waterRenderer = new WaterRenderer(loader, waterShader, renderer.getProjectionMatrix(), buffers);
-        List<WaterTile> waters = new ArrayList<WaterTile>();
+        List<WaterTile> waters = new ArrayList<>();
         for(int i=1; i < 5;i++){
             for(int j=1;j<5;j++) waters.add(new WaterTile(i * 160, -j *160, -1));
         }
 
-        //****************Game Loop Below*********************
+        //LOOP
 
         while (!Display.isCloseRequested()) {
             player.move(terrain);
