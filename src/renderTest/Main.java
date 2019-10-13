@@ -107,16 +107,6 @@ public class Main {
                 float y = terrain.getHeightOfTerrain(x, z);
                 if(y > 0) entities.add(new Entity(fern, 3, new Vector3f(x, y, z), 0, random.nextFloat() * 360, 0, 0.9f));
             }
-            if (i % 1 == 0) {
-
-                float x = random.nextFloat() * 800;
-                float z = random.nextFloat() * -800;
-                float y = terrain.getHeightOfTerrain(x, z);
-                if(y > 0){
-                    entities.add(new Entity(pineModel, 1, new Vector3f(x, y, z), 0, random.nextFloat() * 360, 0, random.nextFloat() * 1f + 1f));
-                }
-
-            }
             if (i % 5 == 0) {
 
                 float x = random.nextFloat() * 800;
@@ -125,6 +115,13 @@ public class Main {
                 if(y > 0){
                     entities.add(new Entity(cherry, 1, new Vector3f(x, y, z), 0, random.nextFloat() * 360, 0, random.nextFloat() * 2f + 2f));
                 }
+
+            }
+            float x = random.nextFloat() * 800;
+            float z = random.nextFloat() * -800;
+            float y = terrain.getHeightOfTerrain(x, z);
+            if(y > 0){
+                entities.add(new Entity(pineModel, 1, new Vector3f(x, y, z), 0, random.nextFloat() * 360, 0, random.nextFloat() * 1f + 1f));
 
             }
 
