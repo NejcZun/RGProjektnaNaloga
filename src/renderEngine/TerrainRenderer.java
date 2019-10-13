@@ -3,7 +3,6 @@ package renderEngine;
 import java.util.List;
 
 import models.RawModel;
-import models.TexturedModel;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
@@ -15,7 +14,6 @@ import org.lwjgl.util.vector.Vector3f;
 import shaders.TerrainShader;
 import terrains.Terrain;
 import textures.ModelTexture;
-import textures.TerrainTexture;
 import textures.TerrainTexturePack;
 import toolbox.Maths;
 
@@ -50,6 +48,7 @@ public class TerrainRenderer {
 		bindTextures(terrain);
 		shader.loadShineVariables(1, 0);
 	}
+	
 	private void bindTextures(Terrain terrain){
 		TerrainTexturePack texturePack = terrain.getTexturePack();
 		GL13.glActiveTexture(GL13.GL_TEXTURE0);

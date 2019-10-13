@@ -1,6 +1,5 @@
 package entities;
 
-import org.lwjgl.util.vector.Vector;
 import org.lwjgl.util.vector.Vector3f;
 
 public class Light {
@@ -13,15 +12,15 @@ public class Light {
 		this.position = position;
 		this.colour = colour;
 	}
-
+	
 	public Light(Vector3f position, Vector3f colour, Vector3f attenuation) {
 		this.position = position;
 		this.colour = colour;
 		this.attenuation = attenuation;
 	}
-
+	
 	public Vector3f getAttenuation(){
-		return this.attenuation;
+		return attenuation;
 	}
 
 	public Vector3f getPosition() {
