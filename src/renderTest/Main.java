@@ -189,7 +189,7 @@ public class Main {
         //LOOP
 
         while (!Display.isCloseRequested()) {
-            player.move(terrain);
+            player.move(terrain, entities, normalMapEntities, movingEntities);
             camera.move();
 
             renderer.renderShadowMap(entities, sun);
