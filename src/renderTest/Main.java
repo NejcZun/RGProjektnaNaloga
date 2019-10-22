@@ -74,14 +74,18 @@ public class Main {
         TexturedModel pineModel = new TexturedModel(OBJFileLoader.loadOBJ("pine", loader), new ModelTexture(loader.loadTexture("pine")));
         pineModel.getTexture().setHasTransparency(true);
 
+
         TexturedModel cherry = new TexturedModel(OBJFileLoader.loadOBJ("cherry", loader), new ModelTexture(loader.loadTexture("cherry")));
         pineModel.getTexture().setHasTransparency(true);
 
         TexturedModel lamp = new TexturedModel(OBJLoader.loadObjModel("lantern", loader), new ModelTexture(loader.loadTexture("lantern")));
         lamp.getTexture().setUseFakeLighting(true);
 
-        List<Entity> entities = new ArrayList<Entity>();
-        List<Entity> normalMapEntities = new ArrayList<Entity>();
+        TexturedModel bunny = new TexturedModel(OBJLoader.loadObjModel("bunny", loader), new ModelTexture(loader.loadTexture("white")));
+
+        List<Entity> entities = new ArrayList<>();
+        List<Entity> movingEntities = new ArrayList<>();
+        List<Entity> normalMapEntities = new ArrayList<>();
 
         //******************NORMAL MAP MODELS************************
 
@@ -141,6 +145,12 @@ public class Main {
                 entities.add(new Entity(lamp, new Vector3f(x, y, z), 0, 0, 0, 1));
             }
         }
+        for(int i=0; i<30; i++){
+            float x = 400 + random.nextFloat() * 400;
+            float z = -400 + random.nextFloat() * 400;
+            float y = terrain.getHeightOfTerrain(x, z);
+            movingEntities.add(new Entity(bunny, new Vector3f(x, y, z), 0, 0, 0, 0.5f));
+        }
 
         //THE WALL
         for(int i=0;i<9;i++){
@@ -189,17 +199,23 @@ public class Main {
             float distance = 2 * (camera.getPosition().y - waters.get(0).getHeight());
             camera.getPosition().y -= distance;
             camera.invertPitch();
-            renderer.renderScene(entities, normalMapEntities, terrains, lights, camera, new Vector4f(0, 1, 0, -waters.get(0).getHeight()+1));
+            renderer.renderScene(entities, normalMapEntities, movingEntities, terrains, lights, camera, new Vector4f(0, 1, 0, -waters.get(0).getHeight()+1));
             camera.getPosition().y += distance;
             camera.invertPitch();
 
             buffers.bindRefractionFrameBuffer();
-            renderer.renderScene(entities, normalMapEntities, terrains, lights, camera, new Vector4f(0, -1, 0, waters.get(0).getHeight() + 0.2f));
+            renderer.renderScene(entities, normalMapEntities, movingEntities, terrains, lights, camera, new Vector4f(0, -1, 0, waters.get(0).getHeight() + 0.2f));
 
+            //make the bunnies move
+            for(Entity entity : movingEntities){
+                float terrainHeight = terrain.getHeightOfTerrain(entity.getPosition().x, entity.getPosition().z);
+                entity.getPosition().y = terrainHeight;
+                entity.getPosition().x += 0.2f; //fix later
+            }
             //render to screen
             GL11.glDisable(GL30.GL_CLIP_DISTANCE0);
             buffers.unbindCurrentFrameBuffer();
-            renderer.renderScene(entities, normalMapEntities, terrains, lights, camera, new Vector4f(0, -1, 0, 100000));
+            renderer.renderScene(entities, normalMapEntities, movingEntities, terrains, lights, camera, new Vector4f(0, -1, 0, 100000));
             waterRenderer.render(waters, camera, sun);
             guiRenderer.render(guiTextures);
 
