@@ -12,7 +12,7 @@ import java.util.List;
 
 public class Player extends Entity {
 
-	private static final float RUN_SPEED = 40;
+	private static final float RUN_SPEED = 70;
 	private static final float TURN_SPEED = 160;
 	private static final float GRAVITY = -50;
 	private static final float JUMP_POWER = 18;
@@ -55,7 +55,7 @@ public class Player extends Entity {
 		upwardsSpeed += GRAVITY * DisplayManager.getFrameTimeSeconds();
 		super.increasePosition(0, upwardsSpeed * DisplayManager.getFrameTimeSeconds(), 0);
 
-		System.out.println(getPosition().x + " " + getPosition().z);
+		//System.out.println(getPosition().x + " " + getPosition().z);
 
 		float terrainHeight = terrain.getHeightOfTerrain(getPosition().x, getPosition().z);
 		if (super.getPosition().y < terrainHeight) {

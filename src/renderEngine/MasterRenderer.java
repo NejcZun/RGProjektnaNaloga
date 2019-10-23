@@ -24,7 +24,7 @@ import terrains.Terrain;
 
 public class MasterRenderer {
 
-	public static final float FOV = 70;
+	public static final float FOV = 40;
 	public static final float NEAR_PLANE = 0.1f;
 	public static final float FAR_PLANE = 1000;
 
@@ -47,7 +47,7 @@ public class MasterRenderer {
 
 	private Map<TexturedModel, List<Entity>> entities = new HashMap<TexturedModel, List<Entity>>();
 	private Map<TexturedModel, List<Entity>> normalMapEntities = new HashMap<TexturedModel, List<Entity>>();
-	private List<Terrain> terrains = new ArrayList<Terrain>();
+	private List<Terrain> terrains = new ArrayList<>();
 
 	public MasterRenderer(Loader loader, Camera camera) {
 		enableCulling();

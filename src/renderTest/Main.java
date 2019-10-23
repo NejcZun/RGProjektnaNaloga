@@ -145,7 +145,7 @@ public class Main {
                 entities.add(new Entity(lamp, new Vector3f(x, y, z), 0, 0, 0, 1));
             }
         }
-        for(int i=0; i<30; i++){
+        for(int i=0; i<10; i++){
             float x = 400 + random.nextFloat() * 400;
             float z = -400 + random.nextFloat() * 400;
             float y = terrain.getHeightOfTerrain(x, z);
@@ -210,7 +210,7 @@ public class Main {
             for(Entity entity : movingEntities){
                 float terrainHeight = terrain.getHeightOfTerrain(entity.getPosition().x, entity.getPosition().z);
                 entity.getPosition().y = terrainHeight;
-                entity.getPosition().x += 0.2f; //fix later
+                entity.movement(terrain);
             }
             //render to screen
             GL11.glDisable(GL30.GL_CLIP_DISTANCE0);

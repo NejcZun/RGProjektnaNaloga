@@ -3,6 +3,9 @@ package entities;
 import models.TexturedModel;
 
 import org.lwjgl.util.vector.Vector3f;
+import terrains.Terrain;
+
+import java.util.Random;
 
 public class Entity {
 
@@ -10,6 +13,7 @@ public class Entity {
 	private Vector3f position;
 	private float rotX, rotY, rotZ;
 	private float scale;
+	private Vector3f newPosition;
 	
 	private int textureIndex = 0;
 
@@ -21,6 +25,7 @@ public class Entity {
 		this.rotY = rotY;
 		this.rotZ = rotZ;
 		this.scale = scale;
+		this.newPosition = position;
 	}
 	
 	public Entity(TexturedModel model, int index, Vector3f position, float rotX, float rotY, float rotZ,
@@ -32,6 +37,7 @@ public class Entity {
 		this.rotY = rotY;
 		this.rotZ = rotZ;
 		this.scale = scale;
+		this.newPosition = position;
 	}
 	
 	public float getTextureXOffset(){
@@ -96,12 +102,43 @@ public class Entity {
 		this.rotZ = rotZ;
 	}
 
+	public Vector3f getNewPosition() {
+		return this.newPosition;
+	}
+
 	public float getScale() {
 		return scale;
 	}
 
 	public void setScale(float scale) {
 		this.scale = scale;
+	}
+
+	public Vector3f getMovementPosition(Terrain terrain){
+		Random random = new Random();
+		float x = 400 + random.nextFloat() * 400;
+		float z = -400 + random.nextFloat() * 400;
+		float y = terrain.getHeightOfTerrain(x, z);
+		return new Vector3f(x, y, z);
+	}
+
+	public void movement(Terrain terrain){
+		//System.out.println("Position:" + this.position + " New Position" + this.newPosition);
+		if((this.newPosition == this.position) || (this.position.x >= this.newPosition.x -3 && this.position.x <= this.newPosition.x+3) && (this.position.z <= this.newPosition.z+3 && this.position.z >= this.newPosition.z-3)){
+			this.newPosition = getMovementPosition(terrain);
+		}else{
+			//Movement from position to newPosition
+
+			if(this.position.x >= this.newPosition.x -1 && this.position.x <= this.newPosition.x+1){/*in proximity*/}
+			else if(this.newPosition.x <= this.position.x) this.position.x -= 0.4f;
+			else this.position.x += 0.4f;
+			if(this.position.z <= this.newPosition.z+1 && this.position.z >= this.newPosition.z-1){/*in proximity*/}
+			else if(this.newPosition.z <= this.position.z) this.position.z -= 0.4f;
+			else this.position.z += 0.4f;
+
+			this.position.y = terrain.getHeightOfTerrain(this.position.x, this.position.z);
+		}
+
 	}
 
 }
