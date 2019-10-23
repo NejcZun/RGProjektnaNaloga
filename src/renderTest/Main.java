@@ -165,6 +165,7 @@ public class Main {
         List<Light> lights = new ArrayList<>();
         Light sun = new Light(new Vector3f(1000000, 1500000, -1000000), new Vector3f(1.3f, 1.3f, 1.3f));
         lights.add(sun);
+        player.setPlayer(true);
         entities.add(player);
 
         List<GuiTexture> guiTextures = new ArrayList<GuiTexture>();

@@ -38,14 +38,26 @@ public class Player extends Entity {
 		if(getPosition().z > -798 && getPosition().z < -1 && getPosition().x > 1 && getPosition().x < 798) {
 
 			// Add the collision detection within the wall
-
-			/*for(Entity entity : entities){
-			if(Math.round(getPosition().x) == Math.round(entity.getPosition().x) && Math.round(getPosition().z) == Math.round(entity.getPosition().z)) trigger = true;
+			boolean collision = false;
+			for(Entity entity : entities){
+				if(!entity.isPlayer() && (entity.getPosition().x >= this.getPosition().x-2 && entity.getPosition().x <= this.getPosition().x+2) && (entity.getPosition().z <= this.getPosition().z+2 && entity.getPosition().z >= this.getPosition().z-2)) {
+					if(getPosition().z-2 <= entity.getPosition().z) getPosition().z -= 0.9f;
+					else if(getPosition().z+2 >= entity.getPosition().z) getPosition().z += 0.9f;
+					else if(getPosition().x-2 <= entity.getPosition().x) getPosition().x -= 0.9f;
+					else if(getPosition().x+2 >= entity.getPosition().x) getPosition().x += 0.9f;
+					collision = true;
+				}
 			}
 			for(Entity entity : normalEntities){
-				if(Math.round(getPosition().x) == Math.round(entity.getPosition().x) && Math.round(getPosition().z) == Math.round(entity.getPosition().z)) trigger = true;
-			}*/
-			super.increasePosition(dx, 0, dz);
+				if(!entity.isPlayer() && (entity.getPosition().x >= this.getPosition().x-5 && entity.getPosition().x <= this.getPosition().x+5) && (entity.getPosition().z <= this.getPosition().z+5 && entity.getPosition().z >= this.getPosition().z-5)) {
+					if(getPosition().z-5 <= entity.getPosition().z) getPosition().z -= 0.9f;
+					else if(getPosition().z+5 >= entity.getPosition().z) getPosition().z += 0.9f;
+					else if(getPosition().x-5 <= entity.getPosition().x) getPosition().x -= 0.9f;
+					else if(getPosition().x+5 >= entity.getPosition().x) getPosition().x += 0.9f;
+					collision = true;
+				}
+			}
+			if(!collision) super.increasePosition(dx, 0, dz);
 		}else{ // THE WALL
 			if(getPosition().z < -798) super.getPosition().z = -797.9f;
 			if(getPosition().z > -1) super.getPosition().z = -1.1f;
@@ -54,8 +66,6 @@ public class Player extends Entity {
 		}
 		upwardsSpeed += GRAVITY * DisplayManager.getFrameTimeSeconds();
 		super.increasePosition(0, upwardsSpeed * DisplayManager.getFrameTimeSeconds(), 0);
-
-		//System.out.println(getPosition().x + " " + getPosition().z);
 
 		float terrainHeight = terrain.getHeightOfTerrain(getPosition().x, getPosition().z);
 		if (super.getPosition().y < terrainHeight) {
@@ -71,7 +81,6 @@ public class Player extends Entity {
 			isInAir = true;
 		}
 	}
-
 	private void checkInputs() {
 		if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
 			this.currentSpeed = RUN_SPEED;

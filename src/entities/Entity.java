@@ -14,6 +14,7 @@ public class Entity {
 	private float rotX, rotY, rotZ;
 	private float scale;
 	private Vector3f newPosition;
+	private boolean isPlayer = false;
 	
 	private int textureIndex = 0;
 
@@ -126,9 +127,9 @@ public class Entity {
 		//System.out.println("Position:" + this.position + " New Position" + this.newPosition);
 		if((this.newPosition == this.position) || (this.position.x >= this.newPosition.x -3 && this.position.x <= this.newPosition.x+3) && (this.position.z <= this.newPosition.z+3 && this.position.z >= this.newPosition.z-3)){
 			this.newPosition = getMovementPosition(terrain);
+			//change the rotation of the position the fucking bunny is facing
 		}else{
 			//Movement from position to newPosition
-
 			if(this.position.x >= this.newPosition.x -1 && this.position.x <= this.newPosition.x+1){/*in proximity*/}
 			else if(this.newPosition.x <= this.position.x) this.position.x -= 0.4f;
 			else this.position.x += 0.4f;
@@ -141,4 +142,11 @@ public class Entity {
 
 	}
 
+	public boolean isPlayer() {
+		return isPlayer;
+	}
+
+	public void setPlayer(boolean player) {
+		isPlayer = player;
+	}
 }
