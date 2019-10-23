@@ -3,6 +3,7 @@ package entities;
 import models.TexturedModel;
 
 import org.lwjgl.util.vector.Vector3f;
+import renderEngine.DisplayManager;
 import terrains.Terrain;
 
 import java.util.Random;
@@ -15,6 +16,12 @@ public class Entity {
 	private float scale;
 	private Vector3f newPosition;
 	private boolean isPlayer = false;
+
+	//So entities can jump
+	private boolean isInAir = false;
+	private float upwardsSpeed = 0;
+	private static final float GRAVITY = -50;
+	private static final float JUMP_POWER = 18;
 	
 	private int textureIndex = 0;
 
@@ -124,7 +131,7 @@ public class Entity {
 	}
 
 	public void movement(Terrain terrain){
-		//System.out.println("Position:" + this.position + " New Position" + this.newPosition);
+		Random random = new Random();
 		if((this.newPosition == this.position) || (this.position.x >= this.newPosition.x -3 && this.position.x <= this.newPosition.x+3) && (this.position.z <= this.newPosition.z+3 && this.position.z >= this.newPosition.z-3)){
 			this.newPosition = getMovementPosition(terrain);
 			//change the rotation of the position the fucking bunny is facing
@@ -137,7 +144,22 @@ public class Entity {
 			else if(this.newPosition.z <= this.position.z) this.position.z -= 0.4f;
 			else this.position.z += 0.4f;
 
-			this.position.y = terrain.getHeightOfTerrain(this.position.x, this.position.z);
+			if(!isInAir){
+				if(random.nextInt(100) == 1){
+					jump();
+				}
+			}
+
+			upwardsSpeed += GRAVITY * DisplayManager.getFrameTimeSeconds();
+			this.increasePosition(0, upwardsSpeed * DisplayManager.getFrameTimeSeconds(), 0);
+
+			float terrainHeight = terrain.getHeightOfTerrain(getPosition().x, getPosition().z);
+			if (this.getPosition().y < terrainHeight) {
+				upwardsSpeed = 0;
+				isInAir = false;
+				this.getPosition().y = terrainHeight;
+			}
+			//this.position.y = terrainHeight;
 		}
 
 	}
@@ -148,5 +170,11 @@ public class Entity {
 
 	public void setPlayer(boolean player) {
 		isPlayer = player;
+	}
+	private void jump() {
+		if (!isInAir) {
+			this.upwardsSpeed = JUMP_POWER;
+			isInAir = true;
+		}
 	}
 }
