@@ -7,6 +7,7 @@ import java.util.Random;
 import fontMash.FontType;
 import fontMash.GUIText;
 import fontRendering.TextMaster;
+import music.MusicMixer;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL30;
@@ -47,13 +48,17 @@ public class Main {
         Loader loader = new Loader();
         TextMaster.init(loader);
 
+        MusicMixer backgroundMusic = new MusicMixer("background.ogg");
+        backgroundMusic.play();
+
+
         //PLAYER
-        RawModel person = OBJLoader.loadObjModel("person", loader);
-        TexturedModel personModel = new TexturedModel(person, new ModelTexture(loader.loadTexture("playerTexture")));
+        RawModel person = OBJLoader.loadObjModel("entities/person", loader);
+        TexturedModel personModel = new TexturedModel(person, new ModelTexture(loader.loadTexture("entities/playerTexture")));
 
 
         //SCORE
-        FontType font = new FontType(loader.loadTexture("verdana"), new File("res/verdana.fnt"));
+        FontType font = new FontType(loader.loadTexture("fonts/verdana"), new File("res/fonts/verdana.fnt"));
         GUIText score = new GUIText("Score: 0", 1.2f, font, new Vector2f(0.47f, 0.05f), 0.9f, true);
         score.setColour(1, 1, 1);
 
@@ -64,34 +69,34 @@ public class Main {
 
         //TERRAIN
 
-        TerrainTexture backgroundTexture = new TerrainTexture(loader.loadTexture("grassy2"));
-        TerrainTexture rTexture = new TerrainTexture(loader.loadTexture("mud"));
-        TerrainTexture gTexture = new TerrainTexture(loader.loadTexture("grassFlowers"));
-        TerrainTexture bTexture = new TerrainTexture(loader.loadTexture("grassy3"));
+        TerrainTexture backgroundTexture = new TerrainTexture(loader.loadTexture("entities/grassy2"));
+        TerrainTexture rTexture = new TerrainTexture(loader.loadTexture("entities/mud"));
+        TerrainTexture gTexture = new TerrainTexture(loader.loadTexture("entities/grassFlowers"));
+        TerrainTexture bTexture = new TerrainTexture(loader.loadTexture("entities/grassy3"));
 
         TerrainTexturePack texturePack = new TerrainTexturePack(backgroundTexture, rTexture, gTexture, bTexture);
-        TerrainTexture blendMap = new TerrainTexture(loader.loadTexture("blendMap"));
+        TerrainTexture blendMap = new TerrainTexture(loader.loadTexture("maps/blendMap"));
 
-        Terrain terrain = new Terrain(0, -1, loader, texturePack, blendMap, "heightmap");
+        Terrain terrain = new Terrain(0, -1, loader, texturePack, blendMap, "maps/heightmap");
         List<Terrain> terrains = new ArrayList<>();
         terrains.add(terrain);
         // *****************************************
-        ModelTexture fernTextureAtlas = new ModelTexture(loader.loadTexture("fern"));
+        ModelTexture fernTextureAtlas = new ModelTexture(loader.loadTexture("entities/fern"));
         fernTextureAtlas.setNumberOfRows(2);
-        TexturedModel fern = new TexturedModel(OBJFileLoader.loadOBJ("fern", loader), fernTextureAtlas);
+        TexturedModel fern = new TexturedModel(OBJFileLoader.loadOBJ("entities/fern", loader), fernTextureAtlas);
         fern.getTexture().setHasTransparency(true);
 
-        TexturedModel pineModel = new TexturedModel(OBJFileLoader.loadOBJ("pine", loader), new ModelTexture(loader.loadTexture("pine")));
+        TexturedModel pineModel = new TexturedModel(OBJFileLoader.loadOBJ("entities/pine", loader), new ModelTexture(loader.loadTexture("entities/pine")));
         pineModel.getTexture().setHasTransparency(true);
 
 
-        TexturedModel cherry = new TexturedModel(OBJFileLoader.loadOBJ("cherry", loader), new ModelTexture(loader.loadTexture("cherry")));
+        TexturedModel cherry = new TexturedModel(OBJFileLoader.loadOBJ("entities/cherry", loader), new ModelTexture(loader.loadTexture("entities/cherry")));
         pineModel.getTexture().setHasTransparency(true);
 
-        TexturedModel lamp = new TexturedModel(OBJLoader.loadObjModel("lantern", loader), new ModelTexture(loader.loadTexture("lantern")));
+        TexturedModel lamp = new TexturedModel(OBJLoader.loadObjModel("entities/lantern", loader), new ModelTexture(loader.loadTexture("entities/lantern")));
         lamp.getTexture().setUseFakeLighting(true);
 
-        TexturedModel bunny = new TexturedModel(OBJLoader.loadObjModel("bunny", loader), new ModelTexture(loader.loadTexture("white")));
+        TexturedModel bunny = new TexturedModel(OBJLoader.loadObjModel("entities/bunny", loader), new ModelTexture(loader.loadTexture("entities/white")));
 
         List<Entity> entities = new ArrayList<>();
         List<Entity> movingEntities = new ArrayList<>();
@@ -99,15 +104,15 @@ public class Main {
 
         //******************NORMAL MAP MODELS************************
 
-        TexturedModel crateModel = new TexturedModel(NormalMappedObjLoader.loadOBJ("crate", loader),
-                new ModelTexture(loader.loadTexture("crate")));
-        crateModel.getTexture().setNormalMap(loader.loadTexture("crateNormal"));
+        TexturedModel crateModel = new TexturedModel(NormalMappedObjLoader.loadOBJ("entities/crate", loader),
+                new ModelTexture(loader.loadTexture("entities/crate")));
+        crateModel.getTexture().setNormalMap(loader.loadTexture("entities/crateNormal"));
         crateModel.getTexture().setShineDamper(10);
         crateModel.getTexture().setReflectivity(0.5f);
 
-        TexturedModel boulderModel = new TexturedModel(NormalMappedObjLoader.loadOBJ("boulder", loader),
-                new ModelTexture(loader.loadTexture("boulder")));
-        boulderModel.getTexture().setNormalMap(loader.loadTexture("boulderNormal"));
+        TexturedModel boulderModel = new TexturedModel(NormalMappedObjLoader.loadOBJ("entities/boulder", loader),
+                new ModelTexture(loader.loadTexture("entities/boulder")));
+        boulderModel.getTexture().setNormalMap(loader.loadTexture("entities/boulderNormal"));
         boulderModel.getTexture().setShineDamper(10);
         boulderModel.getTexture().setReflectivity(0.5f);
 
@@ -119,7 +124,9 @@ public class Main {
                 float x = random.nextFloat() * 800;
                 float z = random.nextFloat() * -800;
                 float y = terrain.getHeightOfTerrain(x, z);
-                if(y > 0) entities.add(new Entity(fern, 3, new Vector3f(x, y, z), 0, random.nextFloat() * 360, 0, 0.9f));
+                Entity fernEntity = new Entity(fern, 3, new Vector3f(x, y, z), 0, random.nextFloat() * 360, 0, 0.9f);
+                fernEntity.setWalkthrough(true);
+                if(y > 0) entities.add(fernEntity);
             }
             if (i % 5 == 0) {
 
@@ -148,16 +155,16 @@ public class Main {
         }
 
         for(int i=0; i < 100;i++){
-            float x = 400 + random.nextFloat() * 600;
-            float z = -400 + random.nextFloat() * 600;
+            float x = 200 + random.nextFloat() * 600;
+            float z = -200 + random.nextFloat() * 600;
             float y = terrain.getHeightOfTerrain(x, z);
             if(i%2 == 0 && y>0) {
                 entities.add(new Entity(lamp, new Vector3f(x, y, z), 0, 0, 0, 1));
             }
         }
-        for(int i=0; i<10; i++){
-            float x = 400 + random.nextFloat() * 400;
-            float z = -400 + random.nextFloat() * 400;
+        for(int i=0; i<15; i++){
+            float x = random.nextFloat() * 700;
+            float z = random.nextFloat() * -700;
             float y = terrain.getHeightOfTerrain(x, z);
             movingEntities.add(new Entity(bunny, new Vector3f(x, y, z), 0, 0, 0, 0.5f));
         }
@@ -233,6 +240,7 @@ public class Main {
         }
         TextMaster.cleanUp();
         buffers.cleanUp();
+        backgroundMusic.stop();
         waterShader.cleanUp();
         guiRenderer.cleanUp();
         renderer.cleanUp();

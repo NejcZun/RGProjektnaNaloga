@@ -49,7 +49,7 @@ public class Player extends Entity {
 
 			boolean collision = false;
 			for(Entity entity : entities){
-				if(!entity.isPlayer() && (entity.getPosition().x >= this.getPosition().x-2 && entity.getPosition().x <= this.getPosition().x+2) && (entity.getPosition().z <= this.getPosition().z+2 && entity.getPosition().z >= this.getPosition().z-2)) {
+				if(!entity.isPlayer() && !entity.isWalkthrough() &&(entity.getPosition().x >= this.getPosition().x-2 && entity.getPosition().x <= this.getPosition().x+2) && (entity.getPosition().z <= this.getPosition().z+2 && entity.getPosition().z >= this.getPosition().z-2)) {
 					if(getPosition().z-2 <= entity.getPosition().z) getPosition().z -= 0.9f;
 					else if(getPosition().z+2 >= entity.getPosition().z) getPosition().z += 0.9f;
 					else if(getPosition().x-2 <= entity.getPosition().x) getPosition().x -= 0.9f;
@@ -58,7 +58,7 @@ public class Player extends Entity {
 				}
 			}
 			for(Entity entity : normalEntities){
-				if(!entity.isPlayer() && (entity.getPosition().x >= this.getPosition().x-5 && entity.getPosition().x <= this.getPosition().x+5) && (entity.getPosition().z <= this.getPosition().z+5 && entity.getPosition().z >= this.getPosition().z-5)) {
+				if(!entity.isPlayer() &&(entity.getPosition().x >= this.getPosition().x-5 && entity.getPosition().x <= this.getPosition().x+5) && (entity.getPosition().z <= this.getPosition().z+5 && entity.getPosition().z >= this.getPosition().z-5)) {
 					if(getPosition().z-5 <= entity.getPosition().z) getPosition().z -= 0.9f;
 					else if(getPosition().z+5 >= entity.getPosition().z) getPosition().z += 0.9f;
 					else if(getPosition().x-5 <= entity.getPosition().x) getPosition().x -= 0.9f;

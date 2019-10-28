@@ -17,6 +17,8 @@ public class Entity {
 	private Vector3f newPosition;
 	private boolean isPlayer = false;
 
+    private boolean isWalkthrough = false;
+
 	//So entities can jump
 	private boolean isInAir = false;
 	private float upwardsSpeed = 0;
@@ -122,10 +124,14 @@ public class Entity {
 		this.scale = scale;
 	}
 
+    public boolean isWalkthrough() { return isWalkthrough; }
+
+    public void setWalkthrough(boolean walkthrough) { isWalkthrough = walkthrough; }
+
 	public Vector3f getMovementPosition(Terrain terrain){
 		Random random = new Random();
-		float x = 400 + random.nextFloat() * 400;
-		float z = -400 + random.nextFloat() * 400;
+		float x = random.nextFloat() * 700;
+		float z = random.nextFloat() * -700;
 		float y = terrain.getHeightOfTerrain(x, z);
 		return new Vector3f(x, y, z);
 	}
