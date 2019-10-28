@@ -24,6 +24,7 @@ public class Entity {
 	private float upwardsSpeed = 0;
 	private static final float GRAVITY = -50;
 	private static final float JUMP_POWER = 18;
+	private static final float SPEED = 0.3f;
 	
 	private int textureIndex = 0;
 
@@ -144,11 +145,11 @@ public class Entity {
 		}else{
 			//Movement from position to newPosition
 			if(this.position.x >= this.newPosition.x -1 && this.position.x <= this.newPosition.x+1){/*in proximity*/}
-			else if(this.newPosition.x <= this.position.x) this.position.x -= 0.3f;
-			else this.position.x += 0.3f;
+			else if(this.newPosition.x <= this.position.x) this.position.x -= SPEED;
+			else this.position.x += SPEED;
 			if(this.position.z <= this.newPosition.z+1 && this.position.z >= this.newPosition.z-1){/*in proximity*/}
-			else if(this.newPosition.z <= this.position.z) this.position.z -= 0.3f;
-			else this.position.z += 0.3f;
+			else if(this.newPosition.z <= this.position.z) this.position.z -= SPEED;
+			else this.position.z += SPEED;
 
 
 			/* zacne tect stran ce je zravn playerja *(
