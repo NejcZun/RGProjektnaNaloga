@@ -1,8 +1,11 @@
 package entities;
 
+import fontMash.FontType;
+import fontMash.GUIText;
 import models.TexturedModel;
 
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
 import renderEngine.DisplayManager;
@@ -20,6 +23,8 @@ public class Player extends Entity {
 	private float currentSpeed = 0;
 	private float currentTurnSpeed = 0;
 	private float upwardsSpeed = 0;
+	public static int SCORE = 0;
+	private GUIText score = null;
 
 	private boolean isInAir = false;
 
@@ -28,11 +33,11 @@ public class Player extends Entity {
 		super(model, position, rotX, rotY, rotZ, scale);
 	}
 
-	public void move(Terrain terrain, List<Entity> entities, List<Entity> normalEntities, List<Entity> movingEntities) {
+	public void move(Terrain terrain, List<Entity> entities, List<Entity> normalEntities, List<Entity> movingEntities, FontType font, GUIText score) {
 		checkInputs();
+		if(this.score==null) this.score = score;
 		super.increaseRotation(0, currentTurnSpeed * DisplayManager.getFrameTimeSeconds(), 0);
 		float distance = currentSpeed * DisplayManager.getFrameTimeSeconds();
-
 
 		/* IF PLAYER STEPS IN WATER HE IS SLOWED */
 		if(getPosition().y <= -2) distance = distance / 2;
@@ -42,7 +47,6 @@ public class Player extends Entity {
 
 		if(getPosition().z > -798 && getPosition().z < -1 && getPosition().x > 1 && getPosition().x < 798) {
 
-			// Add the collision detection within the wall
 			boolean collision = false;
 			for(Entity entity : entities){
 				if(!entity.isPlayer() && (entity.getPosition().x >= this.getPosition().x-2 && entity.getPosition().x <= this.getPosition().x+2) && (entity.getPosition().z <= this.getPosition().z+2 && entity.getPosition().z >= this.getPosition().z-2)) {
@@ -63,6 +67,16 @@ public class Player extends Entity {
 				}
 			}
 			if(!collision) super.increasePosition(dx, 0, dz);
+
+			// PLAYER GETS SCORE BY STEPPING ON A BUNNY
+			for(Entity entity : movingEntities){
+				if(!entity.isPlayer() && (entity.getPosition().x >= this.getPosition().x-2 && entity.getPosition().x <= this.getPosition().x+2) && (entity.getPosition().z <= this.getPosition().z+2 && entity.getPosition().z >= this.getPosition().z-2)) {
+					SCORE ++;
+					setScore(font);
+					respawnRabbit(entity, terrain);
+				}
+			}
+
 		}else{ // THE WALL
 			if(getPosition().z < -798) super.getPosition().z = -797.9f;
 			if(getPosition().z > -1) super.getPosition().z = -1.1f;
@@ -78,6 +92,16 @@ public class Player extends Entity {
 			isInAir = false;
 			super.getPosition().y = terrainHeight;
 		}
+	}
+	private void respawnRabbit(Entity entity, Terrain terrain){
+		entity.setPosition(entity.getMovementPosition(terrain));
+		entity.getNewPosition();
+	}
+
+	private void setScore(FontType font){
+		this.score.remove();
+		this.score = new GUIText("Score: " + SCORE, 1.2f, font, new Vector2f(0.47f, 0.05f), 0.9f, true);
+		this.score.setColour(1,1,1);
 	}
 
 	private void jump() {

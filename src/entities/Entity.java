@@ -138,11 +138,11 @@ public class Entity {
 		}else{
 			//Movement from position to newPosition
 			if(this.position.x >= this.newPosition.x -1 && this.position.x <= this.newPosition.x+1){/*in proximity*/}
-			else if(this.newPosition.x <= this.position.x) this.position.x -= 0.4f;
-			else this.position.x += 0.4f;
+			else if(this.newPosition.x <= this.position.x) this.position.x -= 0.3f;
+			else this.position.x += 0.3f;
 			if(this.position.z <= this.newPosition.z+1 && this.position.z >= this.newPosition.z-1){/*in proximity*/}
-			else if(this.newPosition.z <= this.position.z) this.position.z -= 0.4f;
-			else this.position.z += 0.4f;
+			else if(this.newPosition.z <= this.position.z) this.position.z -= 0.3f;
+			else this.position.z += 0.3f;
 
 
 			/* zacne tect stran ce je zravn playerja *(

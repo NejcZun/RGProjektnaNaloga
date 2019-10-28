@@ -1,10 +1,12 @@
 package renderTest;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import fontMash.FontType;
+import fontMash.GUIText;
+import fontRendering.TextMaster;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL30;
@@ -30,7 +32,6 @@ import terrains.Terrain;
 import textures.ModelTexture;
 import textures.TerrainTexture;
 import textures.TerrainTexturePack;
-import toolbox.MousePicker;
 import water.WaterFrameBuffers;
 import water.WaterRenderer;
 import water.WaterShader;
@@ -38,16 +39,23 @@ import water.WaterTile;
 
 public class Main {
 
+    public static int GLOBAL_SCORE = 0;
+
     public static void main(String[] args) {
 
         DisplayManager.createDisplay();
         Loader loader = new Loader();
+        TextMaster.init(loader);
 
         //PLAYER
         RawModel person = OBJLoader.loadObjModel("person", loader);
         TexturedModel personModel = new TexturedModel(person, new ModelTexture(loader.loadTexture("playerTexture")));
 
 
+        //SCORE
+        FontType font = new FontType(loader.loadTexture("verdana"), new File("res/verdana.fnt"));
+        GUIText score = new GUIText("Score: 0", 1.2f, font, new Vector2f(0.47f, 0.05f), 0.9f, true);
+        score.setColour(1, 1, 1);
 
 
         Player player = new Player(personModel, new Vector3f(300, 5, -400), 0, 100, 0, 0.6f);
@@ -61,12 +69,11 @@ public class Main {
         TerrainTexture gTexture = new TerrainTexture(loader.loadTexture("grassFlowers"));
         TerrainTexture bTexture = new TerrainTexture(loader.loadTexture("grassy3"));
 
-        TerrainTexturePack texturePack = new TerrainTexturePack(backgroundTexture, rTexture,
-                gTexture, bTexture);
+        TerrainTexturePack texturePack = new TerrainTexturePack(backgroundTexture, rTexture, gTexture, bTexture);
         TerrainTexture blendMap = new TerrainTexture(loader.loadTexture("blendMap"));
 
         Terrain terrain = new Terrain(0, -1, loader, texturePack, blendMap, "heightmap");
-        List<Terrain> terrains = new ArrayList<Terrain>();
+        List<Terrain> terrains = new ArrayList<>();
         terrains.add(terrain);
         // *****************************************
         ModelTexture fernTextureAtlas = new ModelTexture(loader.loadTexture("fern"));
@@ -171,7 +178,7 @@ public class Main {
         player.setPlayer(true);
         entities.add(player);
 
-        List<GuiTexture> guiTextures = new ArrayList<GuiTexture>();
+        List<GuiTexture> guiTextures = new ArrayList<>();
         GuiRenderer guiRenderer = new GuiRenderer(loader);
 
 
@@ -193,7 +200,7 @@ public class Main {
         //LOOP
 
         while (!Display.isCloseRequested()) {
-            player.move(terrain, entities, normalMapEntities, movingEntities);
+            player.move(terrain, entities, normalMapEntities, movingEntities, font, score);
             camera.move();
 
             renderer.renderShadowMap(entities, sun);
@@ -212,8 +219,7 @@ public class Main {
 
             //make the bunnies move
             for(Entity entity : movingEntities){
-                float terrainHeight = terrain.getHeightOfTerrain(entity.getPosition().x, entity.getPosition().z);
-                entity.getPosition().y = terrainHeight;
+                entity.getPosition().y = terrain.getHeightOfTerrain(entity.getPosition().x, entity.getPosition().z);
                 entity.movement(terrain);
             }
             //render to screen
@@ -222,10 +228,10 @@ public class Main {
             renderer.renderScene(entities, normalMapEntities, movingEntities, terrains, lights, camera, new Vector4f(0, -1, 0, 100000));
             waterRenderer.render(waters, camera, sun);
             guiRenderer.render(guiTextures);
-
+            TextMaster.render();
             DisplayManager.updateDisplay();
         }
-
+        TextMaster.cleanUp();
         buffers.cleanUp();
         waterShader.cleanUp();
         guiRenderer.cleanUp();
