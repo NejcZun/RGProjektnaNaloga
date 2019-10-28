@@ -32,6 +32,11 @@ public class Player extends Entity {
 		checkInputs();
 		super.increaseRotation(0, currentTurnSpeed * DisplayManager.getFrameTimeSeconds(), 0);
 		float distance = currentSpeed * DisplayManager.getFrameTimeSeconds();
+
+
+		/* IF PLAYER STEPS IN WATER HE IS SLOWED */
+		if(getPosition().y <= -2) distance = distance / 2;
+
 		float dx = (float) (distance * Math.sin(Math.toRadians(super.getRotY())));
 		float dz = (float) (distance * Math.cos(Math.toRadians(super.getRotY())));
 

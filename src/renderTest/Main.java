@@ -47,6 +47,9 @@ public class Main {
         RawModel person = OBJLoader.loadObjModel("person", loader);
         TexturedModel personModel = new TexturedModel(person, new ModelTexture(loader.loadTexture("playerTexture")));
 
+
+
+
         Player player = new Player(personModel, new Vector3f(300, 5, -400), 0, 100, 0, 0.6f);
         Camera camera = new Camera(player);
         MasterRenderer renderer = new MasterRenderer(loader, camera);

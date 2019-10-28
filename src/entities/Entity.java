@@ -144,6 +144,12 @@ public class Entity {
 			else if(this.newPosition.z <= this.position.z) this.position.z -= 0.4f;
 			else this.position.z += 0.4f;
 
+
+			/* zacne tect stran ce je zravn playerja *(
+
+			/getMovementPosition(terrain);
+			 */
+
 			if(!isInAir){
 				if(random.nextInt(100) == 1){
 					jump();
@@ -159,7 +165,6 @@ public class Entity {
 				isInAir = false;
 				this.getPosition().y = terrainHeight;
 			}
-			//this.position.y = terrainHeight;
 		}
 
 	}
