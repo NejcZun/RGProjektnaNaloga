@@ -40,8 +40,6 @@ import water.WaterTile;
 
 public class Main {
 
-    public static int GLOBAL_SCORE = 0;
-
     public static void main(String[] args) {
 
         DisplayManager.createDisplay();
