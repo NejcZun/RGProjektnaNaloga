@@ -48,6 +48,8 @@ public class Main {
         Loader loader = new Loader();
         TextMaster.init(loader);
 
+        //MUSIC
+
         MusicMixer backgroundMusic = new MusicMixer("background.ogg");
         backgroundMusic.play();
 
