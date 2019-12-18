@@ -1,4 +1,4 @@
-package renderTest;
+package main;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -86,8 +86,8 @@ public class Main {
         TexturedModel fern = new TexturedModel(OBJFileLoader.loadOBJ("entities/fern", loader), fernTextureAtlas);
         fern.getTexture().setHasTransparency(true);
 
-        TexturedModel pineModel = new TexturedModel(OBJFileLoader.loadOBJ("entities/pine", loader), new ModelTexture(loader.loadTexture("entities/pine")));
-        pineModel.getTexture().setHasTransparency(true);
+        //TexturedModel pineModel = new TexturedModel(OBJFileLoader.loadOBJ("entities/pine", loader), new ModelTexture(loader.loadTexture("entities/pine")));
+        //pineModel.getTexture().setHasTransparency(true);
 
         TexturedModel bunny = new TexturedModel(OBJLoader.loadObjModel("entities/bunny", loader), new ModelTexture(loader.loadTexture("entities/white")));
 
@@ -97,8 +97,7 @@ public class Main {
 
         //******************NORMAL MAP MODELS************************
 
-        TexturedModel crateModel = new TexturedModel(NormalMappedObjLoader.loadOBJ("entities/crate", loader),
-                new ModelTexture(loader.loadTexture("entities/crate")));
+        TexturedModel crateModel = new TexturedModel(NormalMappedObjLoader.loadOBJ("entities/crate", loader), new ModelTexture(loader.loadTexture("entities/crate")));
         crateModel.getTexture().setNormalMap(loader.loadTexture("entities/crateNormal"));
         crateModel.getTexture().setShineDamper(10);
         crateModel.getTexture().setReflectivity(0.5f);
@@ -108,6 +107,12 @@ public class Main {
         boulderModel.getTexture().setNormalMap(loader.loadTexture("entities/boulderNormal"));
         boulderModel.getTexture().setShineDamper(10);
         boulderModel.getTexture().setReflectivity(0.5f);
+
+        TexturedModel tree = new TexturedModel(NormalMappedObjLoader.loadOBJ("entities/tree", loader), new ModelTexture(loader.loadTexture("entities/bark")));
+        tree.getTexture().setNormalMap(loader.loadTexture("entities/treeNormal"));
+        tree.getTexture().setShineDamper(10);
+        tree.getTexture().setReflectivity(0.5f);
+        tree.getTexture().setHasTransparency(true);
 
 
         //ENTITETE
@@ -125,8 +130,8 @@ public class Main {
             float z = random.nextFloat() * -800;
             float y = terrain.getHeightOfTerrain(x, z);
             if(y > 0){
-                entities.add(new Entity(pineModel, 1, new Vector3f(x, y, z), 0, random.nextFloat() * 360, 0, random.nextFloat() * 1f + 1f));
-
+                //entities.add(new Entity(pineModel, 1, new Vector3f(x, y, z), 0, random.nextFloat() * 360, 0, random.nextFloat() * 1f + 1f));
+                entities.add(new Entity(tree, 1, new Vector3f(x, y, z), 0, random.nextFloat() * 360, 0, random.nextFloat() * 8f + 2f));
             }
 
         }
