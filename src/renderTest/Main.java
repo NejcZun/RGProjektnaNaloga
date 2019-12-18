@@ -89,13 +89,6 @@ public class Main {
         TexturedModel pineModel = new TexturedModel(OBJFileLoader.loadOBJ("entities/pine", loader), new ModelTexture(loader.loadTexture("entities/pine")));
         pineModel.getTexture().setHasTransparency(true);
 
-
-        TexturedModel cherry = new TexturedModel(OBJFileLoader.loadOBJ("entities/cherry", loader), new ModelTexture(loader.loadTexture("entities/cherry")));
-        pineModel.getTexture().setHasTransparency(true);
-
-        TexturedModel lamp = new TexturedModel(OBJLoader.loadObjModel("entities/lantern", loader), new ModelTexture(loader.loadTexture("entities/lantern")));
-        lamp.getTexture().setUseFakeLighting(true);
-
         TexturedModel bunny = new TexturedModel(OBJLoader.loadObjModel("entities/bunny", loader), new ModelTexture(loader.loadTexture("entities/white")));
 
         List<Entity> entities = new ArrayList<>();
@@ -128,16 +121,6 @@ public class Main {
                 fernEntity.setWalkthrough(true);
                 if(y > 0) entities.add(fernEntity);
             }
-            if (i % 5 == 0) {
-
-                float x = random.nextFloat() * 800;
-                float z = random.nextFloat() * -800;
-                float y = terrain.getHeightOfTerrain(x, z);
-                if(y > 0){
-                    entities.add(new Entity(cherry, 1, new Vector3f(x, y, z), 0, random.nextFloat() * 360, 0, random.nextFloat() * 2f + 2f));
-                }
-
-            }
             float x = random.nextFloat() * 800;
             float z = random.nextFloat() * -800;
             float y = terrain.getHeightOfTerrain(x, z);
@@ -152,15 +135,6 @@ public class Main {
             float z = -400 + random.nextFloat() * 400;
             float y = terrain.getHeightOfTerrain(x, z);
             normalMapEntities.add(new Entity(boulderModel, new Vector3f(x, y,z), 180, random.nextFloat() * 360, 0, 0.5f + random.nextFloat()));
-        }
-
-        for(int i=0; i < 100;i++){
-            float x = 200 + random.nextFloat() * 600;
-            float z = -200 + random.nextFloat() * 600;
-            float y = terrain.getHeightOfTerrain(x, z);
-            if(i%2 == 0 && y>0) {
-                entities.add(new Entity(lamp, new Vector3f(x, y, z), 0, 0, 0, 1));
-            }
         }
         for(int i=0; i<15; i++){
             float x = random.nextFloat() * 700;
