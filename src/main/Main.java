@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import fontMash.FontType;
-import fontMash.GUIText;
+import font.FontType;
+import font.GUIText;
 import fontRendering.TextMaster;
 import music.MusicMixer;
 import org.lwjgl.opengl.Display;
@@ -69,10 +69,10 @@ public class Main {
 
         //TERRAIN
 
-        TerrainTexture backgroundTexture = new TerrainTexture(loader.loadTexture("entities/grassy2"));
-        TerrainTexture rTexture = new TerrainTexture(loader.loadTexture("entities/mud"));
-        TerrainTexture gTexture = new TerrainTexture(loader.loadTexture("entities/grassFlowers"));
-        TerrainTexture bTexture = new TerrainTexture(loader.loadTexture("entities/grassy3"));
+        TerrainTexture backgroundTexture = new TerrainTexture(loader.loadTexture("entities/snow"));
+        TerrainTexture rTexture = new TerrainTexture(loader.loadTexture("entities/snow_mud"));
+        TerrainTexture gTexture = new TerrainTexture(loader.loadTexture("entities/snow"));
+        TerrainTexture bTexture = new TerrainTexture(loader.loadTexture("entities/snow"));
 
         TerrainTexturePack texturePack = new TerrainTexturePack(backgroundTexture, rTexture, gTexture, bTexture);
         TerrainTexture blendMap = new TerrainTexture(loader.loadTexture("maps/blendMap"));
@@ -81,13 +81,6 @@ public class Main {
         List<Terrain> terrains = new ArrayList<>();
         terrains.add(terrain);
         // *****************************************
-        ModelTexture fernTextureAtlas = new ModelTexture(loader.loadTexture("entities/fern"));
-        fernTextureAtlas.setNumberOfRows(2);
-        TexturedModel fern = new TexturedModel(OBJFileLoader.loadOBJ("entities/fern", loader), fernTextureAtlas);
-        fern.getTexture().setHasTransparency(true);
-
-        //TexturedModel pineModel = new TexturedModel(OBJFileLoader.loadOBJ("entities/pine", loader), new ModelTexture(loader.loadTexture("entities/pine")));
-        //pineModel.getTexture().setHasTransparency(true);
 
         TexturedModel bunny = new TexturedModel(OBJLoader.loadObjModel("entities/bunny", loader), new ModelTexture(loader.loadTexture("entities/white")));
 
@@ -102,8 +95,7 @@ public class Main {
         crateModel.getTexture().setShineDamper(10);
         crateModel.getTexture().setReflectivity(0.5f);
 
-        TexturedModel boulderModel = new TexturedModel(NormalMappedObjLoader.loadOBJ("entities/boulder", loader),
-                new ModelTexture(loader.loadTexture("entities/boulder")));
+        TexturedModel boulderModel = new TexturedModel(NormalMappedObjLoader.loadOBJ("entities/boulder", loader), new ModelTexture(loader.loadTexture("entities/snow_boulder")));
         boulderModel.getTexture().setNormalMap(loader.loadTexture("entities/boulderNormal"));
         boulderModel.getTexture().setShineDamper(10);
         boulderModel.getTexture().setReflectivity(0.5f);
@@ -118,19 +110,10 @@ public class Main {
         //ENTITETE
         Random random = new Random(5666778);
         for (int i = 0; i < 320; i++) {
-            if (i % 3 == 0) {
-                float x = random.nextFloat() * 800;
-                float z = random.nextFloat() * -800;
-                float y = terrain.getHeightOfTerrain(x, z);
-                Entity fernEntity = new Entity(fern, 3, new Vector3f(x, y, z), 0, random.nextFloat() * 360, 0, 0.9f);
-                fernEntity.setWalkthrough(true);
-                if(y > 0) entities.add(fernEntity);
-            }
             float x = random.nextFloat() * 800;
             float z = random.nextFloat() * -800;
             float y = terrain.getHeightOfTerrain(x, z);
             if(y > 0){
-                //entities.add(new Entity(pineModel, 1, new Vector3f(x, y, z), 0, random.nextFloat() * 360, 0, random.nextFloat() * 1f + 1f));
                 entities.add(new Entity(tree, 1, new Vector3f(x, y, z), 0, random.nextFloat() * 360, 0, random.nextFloat() * 8f + 2f));
             }
 

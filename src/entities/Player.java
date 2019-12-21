@@ -1,7 +1,7 @@
 package entities;
 
-import fontMash.FontType;
-import fontMash.GUIText;
+import font.FontType;
+import font.GUIText;
 import models.TexturedModel;
 
 import org.lwjgl.input.Keyboard;

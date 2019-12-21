@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import fontMash.FontType;
-import fontMash.GUIText;
-import fontMash.TextMeshData;
+import font.FontType;
+import font.GUIText;
+import font.TextMeshData;
 import renderEngine.Loader;
 
 public class TextMaster {

@@ -1,4 +1,4 @@
-package fontMash;
+package font;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -76,12 +76,12 @@ public class TextMeshCreator {
 			}
 			curserX = 0;
 			curserY += LINE_HEIGHT * text.getFontSize();
-		}		
+		}
 		return new TextMeshData(listToArray(vertices), listToArray(textureCoords));
 	}
 
 	private void addVerticesForCharacter(double curserX, double curserY, Character character, double fontSize,
-			List<Float> vertices) {
+                                         List<Float> vertices) {
 		double x = curserX + (character.getxOffset() * fontSize);
 		double y = curserY + (character.getyOffset() * fontSize);
 		double maxX = x + (character.getSizeX() * fontSize);

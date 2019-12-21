@@ -1,9 +1,8 @@
-package fontMash;
-
-import org.lwjgl.util.vector.Vector2f;
-import org.lwjgl.util.vector.Vector3f;
+package font;
 
 import fontRendering.TextMaster;
+import org.lwjgl.util.vector.Vector2f;
+import org.lwjgl.util.vector.Vector3f;
 
 public class GUIText {
 
@@ -25,7 +24,7 @@ public class GUIText {
 
 
 	public GUIText(String text, float fontSize, FontType font, Vector2f position, float maxLineLength,
-				   boolean centered) {
+                   boolean centered) {
 		this.textString = text;
 		this.fontSize = fontSize;
 		this.font = font;

@@ -1,4 +1,4 @@
-package fontMash;
+package font;
 
 import java.util.ArrayList;
 import java.util.List;

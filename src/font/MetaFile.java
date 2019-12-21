@@ -1,4 +1,6 @@
-package fontMash;
+package font;
+
+import org.lwjgl.opengl.Display;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -6,8 +8,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.lwjgl.opengl.Display;
 
 public class MetaFile {
 

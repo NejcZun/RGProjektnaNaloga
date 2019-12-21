@@ -8,8 +8,8 @@ import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
-import fontMash.FontType;
-import fontMash.GUIText;
+import font.FontType;
+import font.GUIText;
 
 public class FontRenderer {
 

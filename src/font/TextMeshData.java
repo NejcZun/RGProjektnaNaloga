@@ -1,4 +1,4 @@
-package fontMash;
+package font;
 
 public class TextMeshData {
 	
