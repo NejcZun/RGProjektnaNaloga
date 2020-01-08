@@ -157,12 +157,6 @@ public class Entity {
 			/getMovementPosition(terrain);
 			 */
 
-			if(!isInAir){
-				if(random.nextInt(100) == 1){
-					jump();
-				}
-			}
-
 			upwardsSpeed += GRAVITY * DisplayManager.getFrameTimeSeconds();
 			this.increasePosition(0, upwardsSpeed * DisplayManager.getFrameTimeSeconds(), 0);
 

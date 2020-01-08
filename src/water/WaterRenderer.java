@@ -19,7 +19,7 @@ import entities.Light;
 
 public class WaterRenderer {
 	
-	private static final String DUDV_MAP = "maps/waterDUDV";
+	private static final String DUDV_MAP = "maps/water-map";
 	private static final String NORMAL_MAP = "maps/normal";
 	private static final float WAVE_SPEED = 0.03f;
 
@@ -87,7 +87,6 @@ public class WaterRenderer {
 	}
 
 	private void setUpVAO(Loader loader) {
-		// Just x and z vectex positions here, y is set to 0 in v.shader
 		float[] vertices = { -1, -1, -1, 1, 1, -1, 1, -1, -1, 1, 1, 1 };
 		quad = loader.loadToVAO(vertices, 2);
 	}

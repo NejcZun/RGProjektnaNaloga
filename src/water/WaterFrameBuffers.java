@@ -33,12 +33,12 @@ public class WaterFrameBuffers {
 	private int refractionTexture;
 	private int refractionDepthTexture;
 
-	public WaterFrameBuffers() {//call when loading the game
+	public WaterFrameBuffers() {
 		initialiseReflectionFrameBuffer();
 		initialiseRefractionFrameBuffer();
 	}
 
-	public void cleanUp() {//call when closing the game
+	public void cleanUp() {
 		GL30.glDeleteFramebuffers(reflectionFrameBuffer);
 		GL11.glDeleteTextures(reflectionTexture);
 		GL30.glDeleteRenderbuffers(reflectionDepthBuffer);
@@ -55,7 +55,7 @@ public class WaterFrameBuffers {
 		bindFrameBuffer(refractionFrameBuffer,REFRACTION_WIDTH,REFRACTION_HEIGHT);
 	}
 	
-	public void unbindCurrentFrameBuffer() {//call after rendering to texture
+	public void unbindCurrentFrameBuffer() {
 		GL30.glBindFramebuffer(GL30.GL_FRAMEBUFFER, 0);
 		GL11.glViewport(0, 0, Display.getWidth(), Display.getHeight());
 	}

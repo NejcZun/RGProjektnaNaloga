@@ -25,6 +25,11 @@ import models.RawModel;
 import models.TexturedModel;
 import normalMappingObjConverter.NormalMappedObjLoader;
 import objConverter.OBJFileLoader;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.state.BasicGameState;
+import org.newdawn.slick.state.StateBasedGame;
 import renderEngine.DisplayManager;
 import renderEngine.Loader;
 import renderEngine.MasterRenderer;
@@ -40,7 +45,7 @@ import water.WaterTile;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String args[]) {
 
         DisplayManager.createDisplay();
         Loader loader = new Loader();

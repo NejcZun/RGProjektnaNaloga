@@ -75,13 +75,6 @@ public class ShadowBox {
 		maxZ += OFFSET;
 
 	}
-
-	/**
-	 * Calculates the center of the "view cuboid" in light space first, and then
-	 * converts this to world space using the inverse light's view matrix.
-	 * 
-	 * @return The center of the "view cuboid" in world space.
-	 */
 	protected Vector3f getCenter() {
 		float x = (minX + maxX) / 2f;
 		float y = (minY + maxY) / 2f;
@@ -92,43 +85,18 @@ public class ShadowBox {
 		return new Vector3f(Matrix4f.transform(invertedLight, cen, null));
 	}
 
-	/**
-	 * @return The width of the "view cuboid" (orthographic projection area).
-	 */
 	protected float getWidth() {
 		return maxX - minX;
 	}
 
-	/**
-	 * @return The height of the "view cuboid" (orthographic projection area).
-	 */
 	protected float getHeight() {
 		return maxY - minY;
 	}
 
-	/**
-	 * @return The length of the "view cuboid" (orthographic projection area).
-	 */
 	protected float getLength() {
 		return maxZ - minZ;
 	}
 
-	/**
-	 * Calculates the position of the vertex at each corner of the view frustum
-	 * in light space (8 vertices in total, so this returns 8 positions).
-	 * 
-	 * @param rotation
-	 *            - camera's rotation.
-	 * @param forwardVector
-	 *            - the direction that the camera is aiming, and thus the
-	 *            direction of the frustum.
-	 * @param centerNear
-	 *            - the center point of the frustum's near plane.
-	 * @param centerFar
-	 *            - the center point of the frustum's (possibly adjusted) far
-	 *            plane.
-	 * @return The positions of the vertices of the frustum in light space.
-	 */
 	private Vector4f[] calculateFrustumVertices(Matrix4f rotation, Vector3f forwardVector,
 			Vector3f centerNear, Vector3f centerFar) {
 		Vector3f upVector = new Vector3f(Matrix4f.transform(rotation, UP, null));
@@ -155,18 +123,6 @@ public class ShadowBox {
 		return points;
 	}
 
-	/**
-	 * Calculates one of the corner vertices of the view frustum in world space
-	 * and converts it to light space.
-	 * 
-	 * @param startPoint
-	 *            - the starting center point on the view frustum.
-	 * @param direction
-	 *            - the direction of the corner from the start point.
-	 * @param width
-	 *            - the distance of the corner from the start point.
-	 * @return - The relevant corner vertex of the view frustum in light space.
-	 */
 	private Vector4f calculateLightSpaceFrustumCorner(Vector3f startPoint, Vector3f direction,
 			float width) {
 		Vector3f point = Vector3f.add(startPoint,
@@ -176,9 +132,6 @@ public class ShadowBox {
 		return point4f;
 	}
 
-	/**
-	 * @return The rotation of the camera represented as a matrix.
-	 */
 	private Matrix4f calculateCameraRotationMatrix() {
 		Matrix4f rotation = new Matrix4f();
 		rotation.rotate((float) Math.toRadians(-cam.getYaw()), new Vector3f(0, 1, 0));
@@ -186,13 +139,6 @@ public class ShadowBox {
 		return rotation;
 	}
 
-	/**
-	 * Calculates the width and height of the near and far planes of the
-	 * camera's view frustum. However, this doesn't have to use the "actual" far
-	 * plane of the view frustum. It can use a shortened view frustum if desired
-	 * by bringing the far-plane closer, which would increase shadow resolution
-	 * but means that distant objects wouldn't cast shadows.
-	 */
 	private void calculateWidthsAndHeights() {
 		farWidth = (float) (SHADOW_DISTANCE * Math.tan(Math.toRadians(MasterRenderer.FOV)));
 		nearWidth = (float) (MasterRenderer.NEAR_PLANE
@@ -201,9 +147,6 @@ public class ShadowBox {
 		nearHeight = nearWidth / getAspectRatio();
 	}
 
-	/**
-	 * @return The aspect ratio of the display (width:height ratio).
-	 */
 	private float getAspectRatio() {
 		return (float) Display.getWidth() / (float) Display.getHeight();
 	}

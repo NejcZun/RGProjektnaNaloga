@@ -24,12 +24,13 @@ public class Player extends Entity {
 	private float currentTurnSpeed = 0;
 	private float upwardsSpeed = 0;
 	public static int SCORE = 0;
+	private boolean isSwimming = false;
+	private boolean isStillSwimming = true;
 	private GUIText score = null;
 
 	private boolean isInAir = false;
 
-	public Player(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ,
-			float scale) {
+	public Player(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale) {
 		super(model, position, rotX, rotY, rotZ, scale);
 	}
 
@@ -40,7 +41,13 @@ public class Player extends Entity {
 		float distance = currentSpeed * DisplayManager.getFrameTimeSeconds();
 
 		/* IF PLAYER STEPS IN WATER HE IS SLOWED */
-		if(getPosition().y <= -2) distance = distance / 2;
+		if(getPosition().y <= -2){
+			distance = distance / 2;
+		}
+
+
+
+
 
 		float dx = (float) (distance * Math.sin(Math.toRadians(super.getRotY())));
 		float dz = (float) (distance * Math.cos(Math.toRadians(super.getRotY())));
